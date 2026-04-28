@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>De la Gardie i Estland &amp; Livland</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #b8956a;
+    --gold-light: #f0e6d3;
+    --gold-dark: #8a6840;
+    --ink: #1e1a14;
+    --ink-soft: #4a4238;
+    --ink-muted: #7a6e62;
+    --parchment: #faf7f2;
+    --parchment-dark: #f0ead8;
+    --red-accent: #8b2e2e;
+    --border: #d4c4a8;
+    --teal: #2d6b68;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--parchment);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+  }
+
+  .hero {
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 4rem 2rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(184,149,106,0.03) 40px, rgba(184,149,106,0.03) 80px);
+  }
+  .hero-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  .hero-desc {
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+    color: #c8b89a;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .hero-line {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1.5rem auto;
+  }
+
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3rem 0 1.5rem;
+  }
+  .section-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 700;
+    background: var(--gold-light);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  /* Person cards */
+  .person-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    border-left: 4px solid var(--gold);
+  }
+  .person-card.highlight {
+    border-left-color: var(--red-accent);
+    background: #fdf8f8;
+  }
+  .person-card.teal-accent {
+    border-left-color: var(--teal);
+  }
+
+  .person-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.4rem;
+  }
+  .person-dates {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+  }
+  .person-body {
+    font-size: 0.94rem;
+    color: var(--ink-soft);
+    line-height: 1.8;
+  }
+  .person-body strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  /* Fact chips */
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0.75rem 0 0.25rem;
+  }
+  .chip {
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .chip-gold { background: var(--gold-light); color: var(--gold-dark); }
+  .chip-red { background: #f5e8e8; color: var(--red-accent); }
+  .chip-teal { background: #e2f0ef; color: var(--teal); }
+  .chip-gray { background: #f0ede8; color: var(--ink-muted); }
+
+  /* Ancestry lines */
+  .ancestry-block {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .ancestry-header {
+    background: var(--ink);
+    color: var(--gold-light);
+    padding: 0.85rem 1.25rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .ancestry-list {
+    padding: 0;
+    list-style: none;
+  }
+  .ancestry-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--parchment-dark);
+    line-height: 1.5;
+  }
+  .ancestry-list li:last-child { border-bottom: none; }
+  .ancestry-list li.bold-line {
+    font-weight: 700;
+    color: var(--ink);
+    background: var(--gold-light);
+  }
+  .ancestry-list li.final-line {
+    font-weight: 700;
+    color: #fff;
+    background: var(--red-accent);
+  }
+  .step-num {
+    min-width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--parchment-dark);
+    color: var(--ink-muted);
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ancestry-list li.bold-line .step-num { background: var(--gold); color: #fff; }
+  .ancestry-list li.final-line .step-num { background: rgba(255,255,255,0.3); color: #fff; }
+
+  /* Governor tables */
+  .gov-table-wrap {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  .gov-table-title {
+    background: var(--parchment-dark);
+    padding: 0.75rem 1.25rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+  }
+  .gov-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.87rem;
+  }
+  .gov-table tr { border-bottom: 1px solid var(--parchment-dark); }
+  .gov-table tr:last-child { border-bottom: none; }
+  .gov-table td {
+    padding: 0.5rem 1.25rem;
+    vertical-align: top;
+    color: var(--ink-soft);
+  }
+  .gov-table td:first-child {
+    width: 100px;
+    color: var(--ink-muted);
+    font-size: 0.82rem;
+    padding-top: 0.55rem;
+    white-space: nowrap;
+  }
+  .gov-table tr.ancestor-row td { color: var(--ink); font-weight: 700; background: var(--gold-light); }
+  .gov-table tr.ancestor-row td:first-child { color: var(--gold-dark); }
+  .gov-table tr.near-relative td { color: var(--teal); background: #f0faf9; }
+
+  /* Stats box */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+  .stat-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+
+  /* Callout */
+  .callout {
+    background: var(--gold-light);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--ink);
+    color: var(--ink-muted);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    font-size: 0.82rem;
+    line-height: 1.8;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* TOC nav */
+  .toc {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+  .toc h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--ink);
+  }
+  .toc ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; }
+  .toc a {
+    font-size: 0.88rem;
+    color: var(--gold-dark);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--gold);
+  }
+  .toc a:hover { color: var(--red-accent); }
+
+  .note-italic {
+    font-style: italic;
+    color: var(--ink-muted);
+    font-size: 0.88rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2.5rem 0;
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 2.5rem 1.25rem 2rem; }
+    .section-header h2 { font-size: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-subtitle">Släkthistoria &bull; Estland &bull; Livland</div>
+  <h1>De la Gardie<br><em>i Estland &amp; Livland</em></h1>
+  <div class="hero-line"></div>
+  <p class="hero-desc">En berättelse om en av Sveriges mäktigaste adelssläkter och deras djupa rötter i Baltikum — från 1500-talet till idag. Sammanställd inför Robert von Kraemers släktförenings resa till Tallinn och Ösel våren 2026.</p>
+</div>
+
+<div class="container">
+
+  <nav class="toc">
+    <h3>Innehåll</h3>
+    <ul>
+      <li><a href="#pontus">Pontus De la Gardie</a></li>
+      <li><a href="#barnen">De tre barnen</a></li>
+      <li><a href="#anor">Anor till Robert De la Gardie</a></li>
+      <li><a href="#estland">Guvernörer i Estland</a></li>
+      <li><a href="#livland">Guvernörer i Livland</a></li>
+      <li><a href="#forst">Förfäder med Estlandsband</a></li>
+    </ul>
+  </nav>
+
+  <!-- PONTUS -->
+  <div id="pontus">
+    <div class="section-header">
+      <div class="section-tag">Stamfader</div>
+      <h2>Pontus De la Gardie</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="person-card highlight">
+      <div class="person-name">
+        Pontus De la Gardie
+        <span class="person-dates">1520–1585</span>
+      </div>
+      <div class="chips">
+        <span class="chip chip-gray">Född i Frankrike</span>
+        <span class="chip chip-red">Drunknade i Narvafloden</span>
+        <span class="chip chip-gold">Begravd i Tallinn</span>
+        <span class="chip chip-gold">Guvernör i Estland 1574–1583</span>
+      </div>
+      <p class="person-body" style="margin-top:0.75rem;">
+        Pontus kom ursprungligen från Frankrike och byggde en lysande militär karriär i svensk tjänst. Han gifte sig <strong>1580 i Vadstena</strong> med <strong>Sophia Gyllenhielm</strong> (ca 1559–1583) — ett utomäktenskapligt barn till kung Johan III. Paret fick tre barn: <strong>Brita</strong> (f. 1581 i Åbo), <strong>Johan</strong> (f. 1582 i Tallinn) och <strong>Jakob</strong> (f. 1583 i Tallinn). Sophia avled i barnsäng 1583. Pontus drunknade i Narvafloden 1585 och begravdes i Tallinn tillsammans med sin hustru.
+      </p>
+      <p class="person-body" style="margin-top:0.75rem;">
+        Barnen Jakob, och troligen även Brita och Johan, fick växa upp hos sin mormor <strong>Katarina Hansdotter</strong> i Åbo.
+      </p>
+    </div>
+
+    <div class="callout">
+      <strong>Alla tre barnen är förfäder till Robert De la Gardie (1823–1916)</strong> — och deras ättlinjer löper samman i honom på flera olika sätt, vilket framgår av anorsammanställningen nedan.
+    </div>
+  </div>
+
+  <!-- DE TRE BARNEN -->
+  <div id="barnen">
+    <div class="section-header">
+      <div class="section-tag">Generation 2</div>
+      <h2>De tre barnen</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="person-card">
+      <div class="person-name">
+        (1) Brita De la Gardie
+        <span class="person-dates">1581–1645 &bull; Född i Åbo</span>
+      </div>
+      <p class="person-body">
+        Gifte sig <strong>1)</strong> på Åbo slott med <strong>Jesper Matsson Krus</strong> (ca 1576–1622). De fick bland annat sönerna <strong>Johan Jespersson Cruus</strong> (1617–1644) och <strong>Lars Jespersson Cruus af Gudhem</strong> (1621–1656) — båda är förfäder till Robert De la Gardie.
+      </p>
+      <p class="person-body" style="margin-top:0.6rem;">
+        Gifte sig <strong>2)</strong> med <strong>Gabriel Oxenstierna</strong> (1587–) — yngre bror till rikskanslern Axel Oxenstierna, och guvernör över Estland 1611–1617.
+      </p>
+      <div style="margin-top:0.85rem; padding-top:0.85rem; border-top:1px solid var(--parchment-dark);">
+        <p class="person-body"><strong>1.1 Johan Jespersson Cruus</strong> (1617–1644) gifte sig 1640 med <strong>Catharina Oxenstierna</strong> (1617–1661), dotter till Axel Oxenstierna. De fick dottern <strong>Brita Cruus</strong> (1641–ca 1716), född i Karkus (Karksi-Nuia) i södra Estland.</p>
+        <p class="person-body" style="margin-top:0.5rem;"><strong>1.2 Lars Jespersson Cruus af Gudhem</strong> (1621–1656) gifte sig med <strong>Agneta Horn</strong> (1629–1672), född i Riga. Agneta är känd som författarinna och dotter till riksmarsk Gustaf Horn och Christina Oxenstierna.</p>
+      </div>
+    </div>
+
+    <div class="person-card teal-accent">
+      <div class="person-name">
+        (2) Johan De la Gardie
+        <span class="person-dates">1582–1640 &bull; Född i Tallinn</span>
+      </div>
+      <div class="chips">
+        <span class="chip chip-teal">Guvernör i Estland 1626–1628</span>
+      </div>
+      <p class="person-body">
+        Johans dotterdotter gifte sig med <strong>Axel Lillie</strong> (1637–1692), vars far Axel Gustafsson Lillie (1603–1662) utsågs till generalguvernör i Estland 1661. En sondotter till Axel Lillie gifte sig med <strong>Magnus Julius De la Gardie</strong> (1674–1741).
+      </p>
+    </div>
+
+    <div class="person-card teal-accent">
+      <div class="person-name">
+        (3) Jakob De la Gardie
+        <span class="person-dates">1583–1652 &bull; Född i Tallinn</span>
+      </div>
+      <div class="chips">
+        <span class="chip chip-teal">Guvernör i Estland 1619–1622</span>
+        <span class="chip chip-teal">Generalguvernör i Livland 1622–1628</span>
+        <span class="chip chip-gold">Herre till Haapsalu, Dagö, Ösel</span>
+      </div>
+      <p class="person-body">
+        Jakob var gift med <strong>Ebba Brahe</strong> (1596–1674) och familjen bodde på Revals slott (Toompea). Sonen <strong>Magnus Gabriel De la Gardie</strong> (1622–1686) — riksdrots, hovets prålande lysande stjärna — var också född i Tallinn. Den yngre sonen <strong>Axel Julius De la Gardie</strong> (1637–1710), generalguvernör i Estland 1687–1704, är en direkt förfader till Robert De la Gardie.
+      </p>
+      <p class="person-body" style="margin-top:0.5rem;">
+        Magnus Gabriel fick 1646 godset Magnushof på Ösel av drottning Kristina, och 1650 erhöll han hela ön Ösel med alla tullintäkter. Axel Julius visade under nödåren kring 1696 hjärta för den nödlidande befolkningen och kvarhöll spannmålstunnor för deras räkning.
+      </p>
+    </div>
+  </div>
+
+  <!-- ANOR TILL ROBERT -->
+  <div id="anor">
+    <div class="section-header">
+      <div class="section-tag">Anorlinjer</div>
+      <h2>Vägen till Robert De la Gardie</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p style="color:var(--ink-soft); margin-bottom:1.5rem; font-size:0.94rem;">Samtliga fyra linjer nedan mynnar ut i <strong>Robert De la Gardie (1823–1916)</strong> gift med Mathilde von Kraemer (1826–1907). Linjerna löper delvis ihop i Pontus Fredrik De la Gardie och Hedvig Eva Rålamb.</p>
+
+    <div class="ancestry-block">
+      <div class="ancestry-header">Linje A — via Brita De la Gardie och Johan Jespersson Cruus</div>
+      <ul class="ancestry-list">
+        <li class="bold-line"><div class="step-num">1</div><div>Pontus De la Gardie (1520–1585) g.m. Sofia Gyllenhielm</div></li>
+        <li><div class="step-num">2</div><div>Brita De la Gardie (1581–1645) g.m. Jesper Matsson Krus</div></li>
+        <li><div class="step-num">3</div><div>Johan Jespersson Cruus (1617–1644) g.m. Catharina Oxenstierna</div></li>
+        <li><div class="step-num">4</div><div>Brita Cruus (1641–ca 1716) — född i Karkus, Estland — g.m. Jakob Lilliehöök</div></li>
+        <li><div class="step-num">5</div><div>Jakobina Catharina Lilliehöök (1658–1696) g.m. Gustaf Horn af Marienborg</div></li>
+        <li><div class="step-num">6</div><div>Brita Sofia Horn af Marienborg (–1728) g.m. Carl Gustaf Bielke</div></li>
+        <li><div class="step-num">7</div><div>Eva Bielke (1706–1778) g.m. Johan Gabriel Sack</div></li>
+        <li><div class="step-num">8</div><div>Christina Sofia Sack (1723–1781) g.m. Claes Gustaf Rålamb</div></li>
+        <li><div class="step-num">9</div><div>Hedvig Eva Rålamb (1747–1816) g.m. Pontus Fredrik De la Gardie</div></li>
+        <li><div class="step-num">10</div><div>Axel Gabriel De la Gardie (1772–1838) g.m. Gustafva Adlerbielke</div></li>
+        <li class="final-line"><div class="step-num">11</div><div>Robert De la Gardie (1823–1916) g.m. Mathilde von Kraemer</div></li>
+      </ul>
+    </div>
+
+    <div class="ancestry-block">
+      <div class="ancestry-header">Linje B — via Brita De la Gardie och Lars Jespersson Cruus af Gudhem</div>
+      <ul class="ancestry-list">
+        <li class="bold-line"><div class="step-num">1</div><div>Pontus De la Gardie (1520–1585) g.m. Sofia Gyllenhielm</div></li>
+        <li><div class="step-num">2</div><div>Brita De la Gardie (1581–1645) g.m. Jesper Matsson Krus</div></li>
+        <li><div class="step-num">3</div><div>Lars Jespersson Cruus af Gudhem (1621–1656) g.m. Agneta Horn (f. Riga)</div></li>
+        <li><div class="step-num">4</div><div>Brita Cruus af Gudhem (1652–1716) g.m. Fabian Wrede</div></li>
+        <li><div class="step-num">5</div><div>Agneta Wrede (1674–1730) g.m. Axel Johan Lillie</div></li>
+        <li><div class="step-num">6</div><div>Hedvig Charlotta Lillie (1695–1745) g.m. Magnus Julius De la Gardie</div></li>
+        <li><div class="step-num">7</div><div>Pontus Fredrik De la Gardie (1726–1791) g.m. Hedvig Eva Rålamb</div></li>
+        <li><div class="step-num">8</div><div>Axel Gabriel De la Gardie (1772–1838) g.m. Gustafva Adlerbielke</div></li>
+        <li class="final-line"><div class="step-num">9</div><div>Robert De la Gardie (1823–1916) g.m. Mathilde von Kraemer</div></li>
+      </ul>
+    </div>
+
+    <div class="ancestry-block">
+      <div class="ancestry-header">Linje C — via Johan De la Gardie (f. Tallinn)</div>
+      <ul class="ancestry-list">
+        <li class="bold-line"><div class="step-num">1</div><div>Pontus De la Gardie (1520–1585) g.m. Sofia Gyllenhielm</div></li>
+        <li><div class="step-num">2</div><div>Johan De la Gardie (1582–1640) — f. Tallinn — g.m. Catharina Oxenstierna</div></li>
+        <li><div class="step-num">3</div><div>Catharina De la Gardie (1616–1680) g.m. Fredrik Stenbock</div></li>
+        <li><div class="step-num">4</div><div>Maria Elisabet Stenbock (–1693) g.m. Axel Lillie</div></li>
+        <li><div class="step-num">5</div><div>Christina Beata Lillie (1677–1729) g.m. Carl Filip Sack</div></li>
+        <li><div class="step-num">6</div><div>Johan Gabriel Sack (1697–1751) g.m. Eva Bielke</div></li>
+        <li><div class="step-num">7</div><div>Christina Sofia Sack (1723–1781) g.m. Claes Gustaf Rålamb</div></li>
+        <li><div class="step-num">8</div><div>Hedvig Eva Rålamb (1747–1816) g.m. Pontus Fredrik De la Gardie</div></li>
+        <li><div class="step-num">9</div><div>Axel Gabriel De la Gardie (1772–1838) g.m. Gustafva Adlerbielke</div></li>
+        <li class="final-line"><div class="step-num">10</div><div>Robert De la Gardie (1823–1916) g.m. Mathilde von Kraemer</div></li>
+      </ul>
+    </div>
+
+    <div class="ancestry-block">
+      <div class="ancestry-header">Linje D — via Jakob De la Gardie och Axel Julius De la Gardie</div>
+      <ul class="ancestry-list">
+        <li class="bold-line"><div class="step-num">1</div><div>Pontus De la Gardie (1520–1585) g.m. Sofia Gyllenhielm</div></li>
+        <li><div class="step-num">2</div><div>Jakob De la Gardie (1583–1652) — f. Tallinn — g.m. Ebba Brahe</div></li>
+        <li><div class="step-num">3</div><div>Axel Julius De la Gardie (1637–1710) — generalguvernör Estland — g.m. Sofia Juliana Forbus</div></li>
+        <li><div class="step-num">4</div><div>Magnus Julius De la Gardie (1674–1741) g.m. Hedvig Charlotta Lillie</div></li>
+        <li><div class="step-num">5</div><div>Pontus Fredrik De la Gardie (1726–1791) g.m. Hedvig Eva Rålamb</div></li>
+        <li><div class="step-num">6</div><div>Axel Gabriel De la Gardie (1772–1838) g.m. Gustafva Adlerbielke</div></li>
+        <li class="final-line"><div class="step-num">7</div><div>Robert De la Gardie (1823–1916) g.m. Mathilde von Kraemer</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- GUVERNÖRER ESTLAND -->
+  <div id="estland">
+    <div class="section-header">
+      <div class="section-tag">Svenska Estland</div>
+      <h2>Guvernörer 1561–1710</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">34%</div>
+        <div class="stat-label">av guvernörerna är direkta förfäder</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50%</div>
+        <div class="stat-label">om nära släkt räknas in</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      Namn i fet stil nedan är <strong>direkta förfäder</strong>. Kursiverade är nära släktingar. Kommentarer anger hur de hänger samman med anorlinjen.
+    </div>
+
+    <div class="gov-table-wrap">
+      <div class="gov-table-title">Guvernörer över Estland (urval med förfäderkommentarer)</div>
+      <table class="gov-table">
+        <tr><td>1574–75</td><td><strong>Pontus De la Gardie</strong> — stamfader</td></tr>
+        <tr><td>1583–85</td><td><strong>Pontus De la Gardie</strong> (andra perioden)</td></tr>
+        <tr class="ancestor-row"><td>1588–90</td><td>Gustaf Axelsson Banér — förfader via Nils Bielke</td></tr>
+        <tr class="near-relative"><td>1611–17</td><td>Gabriel Bengtsson Oxenstierna — g.m. Brita De la Gardie (nära släkt)</td></tr>
+        <tr class="ancestor-row"><td>1619–22</td><td><strong>Jakob De la Gardie</strong> — förfader (linje D)</td></tr>
+        <tr class="ancestor-row"><td>1626–28</td><td><strong>Johan De la Gardie</strong> — förfader (linje C)</td></tr>
+        <tr class="ancestor-row"><td>1687–1704</td><td><strong>Axel Julius De la Gardie</strong> — förfader (linje D)</td></tr>
+        <tr><td>1585–88</td><td>Gustaf Gabrielsson Oxenstierna — förfader via Axel Oxenstierna/Brita Cruus</td></tr>
+        <tr><td>1605</td><td>Nils Turesson Bielke — förfader via Ture Bielke och Nils Bielke</td></tr>
+        <tr class="ancestor-row"><td>1687</td><td><strong>Nils Bielke</strong> (1644–1716) — förfader via Carl Gustaf Bielke och Eva Bielke</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GUVERNÖRER LIVLAND -->
+  <div id="livland">
+    <div class="section-header">
+      <div class="section-tag">Svenska Livland</div>
+      <h2>Generalguvernörer 1622–1710</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">15%</div>
+        <div class="stat-label">direkta förfäder bland guvernörerna</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">30%</div>
+        <div class="stat-label">om nära släkt räknas in</div>
+      </div>
+    </div>
+
+    <div class="gov-table-wrap">
+      <div class="gov-table-title">Generalguvernörer över Livland (urval)</div>
+      <table class="gov-table">
+        <tr class="ancestor-row"><td>1622–28</td><td><strong>Jakob De la Gardie</strong> — förfader (linje D)</td></tr>
+        <tr class="near-relative"><td>1628–29</td><td>Gustaf Horn (1592–1657) — far till Agneta Horn g.m. Lars Cruus</td></tr>
+        <tr class="near-relative"><td>1645–47</td><td>Gabriel Bengtsson Oxenstierna — g.m. Brita De la Gardie</td></tr>
+        <tr class="near-relative"><td>1649–51</td><td>Magnus Gabriel De la Gardie — bror till Axel Julius (nära släkt)</td></tr>
+        <tr><td>1661</td><td>Axel Gustafsson Lillie (mottog ej ämbetet) — förfader via Axel Lillie</td></tr>
+        <tr class="near-relative"><td>1652–53</td><td>Gustaf Horn (andra perioden)</td></tr>
+      </table>
+    </div>
+
+    <div class="callout">
+      <strong>Sammantaget:</strong> Av samtliga guvernörer i Svenska Estland och Svenska Livland 1561–1710 är 28 % direkta förfäder, och 43 % om man räknar in nära släktingar. Släkten De la Gardie och dess kretsar dominerade förvaltningen av de baltiska provinserna under hela den svenska stormaktstiden.
+    </div>
+  </div>
+
+  <!-- FÖRFÄDER MED ESTLANDSBAND -->
+  <div id="forst">
+    <div class="section-header">
+      <div class="section-tag">Djupare anor</div>
+      <h2>Förfäder med Estlands- och Livlandsband</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <p style="color:var(--ink-soft); font-size:0.94rem; margin-bottom:1.5rem;">Utöver De la Gardie-linjerna finns ett flertal andra anorgrenar med starka kopplingar till Tallinn och Baltikum. Här är ett urval:</p>
+
+    <div class="person-card">
+      <div class="person-name">Ebba Brahes förfäder</div>
+      <p class="person-body">
+        <strong>Per Brahe d.ä.</strong> (1520–1590) — Ebba Brahes farfar — studerade i Reval och ägde hus där. Han utsågs till ståthållare på Reval 1566 men tillträdde aldrig. Hans far <strong>Joakim Brahe</strong> (–1520) halshöggs i Stockholms blodbad; hustrun <strong>Margareta Eriksdotter Vasa</strong> (–1536) — syster till Gustav Vasa — dog i Tallinn och ska vara begraven i domkyrkan där.
+      </p>
+    </div>
+
+    <div class="person-card">
+      <div class="person-name">Horn af Kanckas</div>
+      <p class="person-body">
+        <strong>Henrik Klasson Horn af Kanckas</strong> (ca 1512–1595) var generalguvernör i Estland 1562 och 1565–1568. Hans son <strong>Carl Henriksson Horn af Kanckas</strong> (ca 1550–1601) var generalguvernör 1576–1578 och 1600–1601, och begravdes i Revals domkyrka tillsammans med sin hustru Agneta von Dellwig. Bägge är förfäder via Hedvig Eva Rålamb.
+      </p>
+    </div>
+
+    <div class="person-card">
+      <div class="person-name">Robert Douglas (1611–1662)</div>
+      <p class="person-body">
+        Skotskfödd militär som 1658 kallades att efterträda den alltför passiva Magnus Gabriel De la Gardie som befälhavare i Estland och Livland. Gift med <strong>Hedvig Mörner</strong> (–ca 1702). Förfader via Gustaf Douglas och Hedvig Douglas till Claes Gustaf Rålamb.
+      </p>
+    </div>
+
+    <div class="person-card">
+      <div class="person-name">Svante Sture d.y. (1517–1567)</div>
+      <p class="person-body">
+        Generalguvernör i Livland 1562–1564. Gift med Märta Eriksdotter Leijonhufvud. Är förfader på <strong>två separata sätt</strong>: via dottern Kristina Sture (g.m. Gustaf Banér) och via dottern Malin Sture (g.m. Erik Stenbock, urledande till Gustaf Otto Stenbock g.m. Christina Catharina De la Gardie).
+      </p>
+    </div>
+
+    <div class="person-card">
+      <div class="person-name">Ätten von Uexküll/Yxkull</div>
+      <p class="person-body">
+        Flera medlemmar av den baltiska adelsätten von Uexküll dog och begravdes i Tallinn. <strong>Johan von Uexküll</strong> (ca 1532–1563) och hans hustru <strong>Barbara Anrep</strong> (1534–1563) ligger båda begravda i domkyrkan i Tallinn. Släkten von Uexküll har via sina ättlingar kopplingar till Kievriket/Rurikernas dynasti, och Johann von Uexküll räknas som Karl den stores 23:e ättling i rakt nedstigande led.
+      </p>
+    </div>
+
+    <div class="person-card">
+      <div class="person-name">Karl Christiernsson Vasa (–1440)</div>
+      <p class="person-body">
+        Riksråd och förfader via <strong>Sofia Gyllenhielm</strong> (Kung Johan III:s utomäktenskapliga dotter). Karl dog i Reval den 8 augusti 1440 — hans goda relationer med staden underlättade ett militärt samarbete mot sjörövare. Han är begravd i Stockholms gråbrödrakloster. Sofia Gyllenhielm är hans 4:e generationens ättling.
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="note-italic">Sammanställd av P-O Tellander inför Robert von Kraemers släktförenings resa till Tallinn och Ösel våren 2026. Uppgifterna är huvudsakligen hämtade från P-O:s släktdatabas samt öppna källor på internet (Wikipedia, Wikiwand, Wiki-rötter m.fl.). Version 2.0, reviderat 22 april 2026.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>De la Gardie i Estland &amp; Livland &bull; Version 2.0 &bull; 2026</p>
+  <p style="margin-top:0.5rem;">Sammanställd för Robert von Kraemers släktförening</p>
+</footer>
+
+</body>
+</html>
